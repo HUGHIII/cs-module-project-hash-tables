@@ -109,10 +109,29 @@ class HashTable:
         """
         # Your code here
         index = self.hash_index(key)
+        curr = self.storage[index]
         # if self.storage[index] is None:
         #     print('not found')
         # else:
         #     self.storage[index].value = None
+
+        if curr is not None:
+            while curr.next:
+                if curr.key == key:
+                    curr = curr.next 
+                    return
+                else:
+                     curr = curr.next
+            if curr.next is None:
+                curr = None
+                return
+        return None
+                
+                
+
+
+
+
 
     def get(self, key):
         """

@@ -1,0 +1,9 @@
+MODIFY "PUT" TO HANDLE COLLISIONS
+    check if the current storage slot has a value besides NONE
+    or just check by "if current:"
+    or if index is same?
+
+    if there is a next value, set that value to current until "next" is None
+    then make that "next" take the value of the inserted value
+
+

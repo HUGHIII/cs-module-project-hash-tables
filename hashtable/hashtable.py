@@ -77,8 +77,29 @@ class HashTable:
         """
         # Your code here
         index = self.hash_index(key)
-        insertion = HashTableEntry(key, value)
-        self.storage[index] = insertion
+        current = self.storage[index]
+        # insertion = HashTableEntry(key, value)  
+        
+        
+        if current: 
+            while current is not None:
+                print(current.key)
+                if current.key == key:
+                    current.value = value
+                    return
+                if current.next:
+                    current = current.next
+                else:
+                    current.next = HashTableEntry(key, value)
+                    return
+        else:
+             self.storage[index] = HashTableEntry(key, value)
+
+        
+        
+        
+        
+        
 
     def delete(self, key):
         """
@@ -88,10 +109,10 @@ class HashTable:
         """
         # Your code here
         index = self.hash_index(key)
-        if self.storage[index] is None:
-            print('not found')
-        else:
-            self.storage[index].value = None
+        # if self.storage[index] is None:
+        #     print('not found')
+        # else:
+        #     self.storage[index].value = None
 
     def get(self, key):
         """
@@ -102,10 +123,26 @@ class HashTable:
 
         # Your code here
         index = self.hash_index(key)
-        if self.storage[index] is None:
-            return None
+        curr = self.storage[index]
 
-        return self.storage[index].value
+        # if self.storage[index] is None:
+        #     return None
+
+
+        # return self.storage[index].value
+
+        if curr is not None:
+            while curr.next:
+                if curr.key == key:
+                    return curr.value
+                else:
+                    curr = curr.next
+            if curr.next is None:
+                return curr.value
+
+        
+        else:
+            return None
 
     def resize(self, new_capacity):
         """
@@ -115,6 +152,22 @@ class HashTable:
         """
         # Your code here
 
+# ht = HashTable(8)
+# ht.put("line_1", "'Twas brillig, and the slithy toves")
+# ht.put("line_2", "Did gyre and gimble in the wabe:")
+# ht.put("line_3", "All mimsy were the borogoves,")
+# ht.put("line_4", "And the mome raths outgrabe.")
+# ht.put("line_5", '"Beware the Jabberwock, my son!')
+# ht.put("line_6", "The jaws that bite, the claws that catch!")
+# ht.put("line_7", "Beware the Jubjub bird, and shun")
+# ht.put("line_8", 'The frumious Bandersnatch!"')
+# ht.put("line_9", "He took his vorpal sword in hand;")
+# ht.put("line_10", "Long time the manxome foe he sought--")
+# ht.put("line_11", "So rested he by the Tumtum tree")
+# ht.put("line_12", "And stood awhile in thought.")
+
+
+    
 
 if __name__ == "__main__":
     ht = HashTable(8)

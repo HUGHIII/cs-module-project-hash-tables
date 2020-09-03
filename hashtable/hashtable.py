@@ -88,7 +88,10 @@ class HashTable:
         """
         # Your code here
         index = self.hash_index(key)
-        self.storage[index].value = None
+        if self.storage[index] is None:
+            print('not found')
+        else:
+            self.storage[index].value = None
 
     def get(self, key):
         """
@@ -99,6 +102,8 @@ class HashTable:
 
         # Your code here
         index = self.hash_index(key)
+        if self.storage[index] is None:
+            return None
 
         return self.storage[index].value
 

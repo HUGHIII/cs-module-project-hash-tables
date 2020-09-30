@@ -103,16 +103,18 @@ class HashTable:
 
         if curr is None:
             self.storage[index] = HashTableEntry(key,value)
+            self.total += 1
 
         while curr is not None:
             if curr.key == key:
                 curr.value = value
-                self.total += 1
+                # self.total += 1
                 return
             elif curr.next:
                 curr = curr.next
             else:
                  curr.next = HashTableEntry(key,value)
+                 self.total += 1
                  return   
 
         
@@ -128,11 +130,38 @@ class HashTable:
         Implement this.
         """
         # Your code here
+
+        # index = self.hash_index(key)
+        # if self.storage[index] is None:
+        #     print('not found')
+        # else:
+        #     self.storage[index].value = None
+
         index = self.hash_index(key)
+
         if self.storage[index] is None:
-            print('not found')
-        else:
-            self.storage[index].value = None
+            return None
+        elif self.storage[index].key == key:
+            delKey = self.storage[index].key
+            self.storage[index] = self.storage[index].next
+            delKey = None
+            self.total -= 1
+            return delKey
+        
+        prev = self.storage[index]
+        curr = self.storage[index].next
+        while curr is not None:
+            if curr.key == key:
+                prev.next = curr.next
+                curr = None
+                self.total -= 1
+                return curr
+            else:
+                prev = prev.next
+                curr = curr.next
+        return None
+
+
 
 
     def get(self, key):
@@ -144,11 +173,26 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        index = self.hash_index(key)
-        if self.storage[index] is None:
-            return None
 
-        return self.storage[index].value
+        # index = self.hash_index(key)
+        # if self.storage[index] is None:
+        #     return None
+
+        # return self.storage[index].value
+
+        index = self.hash_index(key)
+        curr = self.storage[index]
+
+        if curr is None:
+            return None
+        
+        while curr is not None:
+            if curr.key == key:
+                return curr.value
+            elif curr.next:
+                curr = curr.next
+            else:
+                return None
 
 
     def resize(self, new_capacity):

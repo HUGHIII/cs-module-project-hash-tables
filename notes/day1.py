@@ -1,5 +1,5 @@
 table = [None] * 8
-​
+
 class HashEntry:
 	def __init__(self, key, value):
 		self.key = key

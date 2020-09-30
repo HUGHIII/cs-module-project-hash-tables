@@ -7,6 +7,9 @@ class HashTableEntry:
         self.value = value
         self.next = None
 
+    def __repr__(self):
+        return f'hashtableEntry ({repr(self.key)})({repr(self.value)})'
+
 
 # Hash table can't have fewer than this many slots
 MIN_CAPACITY = 8
@@ -24,6 +27,7 @@ class HashTable:
         # Your code here
         self.capacity = capacity
         self.storage = [None] * capacity
+        self.total = 0
 
     def get_num_slots(self):
         """
@@ -36,6 +40,7 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        return self.capacity
 
 
     def get_load_factor(self):
@@ -45,6 +50,7 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        self.total / self.capacity
 
 
     def fnv1(self, key):
@@ -87,9 +93,29 @@ class HashTable:
         Implement this.
         """
         # Your code here
+
+        # index = self.hash_index(key)
+        # insertion = HashTableEntry(key,value)
+        # self.storage[index] = insertion
+
         index = self.hash_index(key)
-        insertion = HashTableEntry(key,value)
-        self.storage[index] = insertion
+        curr = self.storage[index]
+
+        if curr is None:
+            self.storage[index] = HashTableEntry(key,value)
+
+        while curr is not None:
+            if curr.key == key:
+                curr.value = value
+                self.total += 1
+                return
+            elif curr.next:
+                curr = curr.next
+            else:
+                 curr.next = HashTableEntry(key,value)
+                 return   
+
+        
 
 
 

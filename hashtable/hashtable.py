@@ -50,7 +50,10 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        self.total / self.capacity
+        return self.total / self.capacity
+
+    # def __repr__(self):
+    #     return f'get load factor'(self.total / self.capacity)
 
 
     def fnv1(self, key):
@@ -115,7 +118,11 @@ class HashTable:
             else:
                  curr.next = HashTableEntry(key,value)
                  self.total += 1
-                 return   
+                 return
+
+        if self.get_load_factor() >= 0.7:
+            self.resize(self.capacity * 2)
+
 
         
 
@@ -203,11 +210,23 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        oldstore = self.storage
+        newstore = [None] * new_capacity
+        self.storage = newstore
+        self.capacity = new_capacity
+
+        # for i in oldstore:
+        #     while i is not None:
+        #         curr = i.key
+        #         self.hash_index(i.key)
+
+
 
 
 
 if __name__ == "__main__":
     ht = HashTable(8)
+    
 
     ht.put("line_1", "'Twas brillig, and the slithy toves")
     ht.put("line_2", "Did gyre and gimble in the wabe:")
@@ -240,3 +259,4 @@ if __name__ == "__main__":
         print(ht.get(f"line_{i}"))
 
     print("")
+

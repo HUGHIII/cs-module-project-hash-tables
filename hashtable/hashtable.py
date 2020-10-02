@@ -107,6 +107,7 @@ class HashTable:
         if curr is None:
             self.storage[index] = HashTableEntry(key,value)
             self.total += 1
+            return
 
         while curr is not None:
             if curr.key == key:
